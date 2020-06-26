@@ -1,6 +1,58 @@
 // From 2.3
 // Copy over all of the code from 2.3...
 
+class Book {
+  constructor(title, genre, author, isRead) {
+  this.title = title;
+  this.genre = genre;
+  this.author = author;
+  this.isRead = isRead || false;
+  }
+}
+
+const book1 = new Book('House of the Scorpion', 'Science Fiction', 'Nancy Farmer', 'true');
+const book2 = new Book('fables', 'Dark fantasy', 'Bill Willingham', 'true');
+const book3 = new Book('One Piece','Manga','Eichiro Oda', 'true');
+const book4 = new Book('Juventus A history of black and white', 'Soccer', 'Jasper Fforde');
+const book5 = new Book('Outliers','Psychology','Malcolm Gladwell', 'true');
+
+console.log(book1, book2, book3, book4, book5);
+
+class BookList {
+  constructor() {
+    this.books = [];
+    this.lastRead = null;
+    this.currentlyReading = null;
+  }
+
+  add(book) {
+    this.books.push(book);
+    if (!this.currentlyReading) this.currentlyReading = book;
+  }
+
+  getNumRead() {
+    return this.books.filter(book => book.isRead).length;
+  }
+
+  getNumUnread() {
+    return this.books.filter(book => !book.isRead).length
+  }
+
+  lookupBook(title) {
+    return this.books.find((book) => book.title === title);
+  }
+
+  startReading(title) {
+    this.currentlyReading = this.lookupBook(title);
+  }
+
+  finishReading(title) {
+    this.lastRead = this.lookupBook(title);
+    this.lastRead.isRead = true;
+    this.currentlyReading = null;
+  }
+}
+
 // Exercise 2.4
 /*
 
